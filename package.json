@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "lint:openapi": "spectral lint contracts/*.yaml",
-    "test:local": "newman run postman/collections/FIT4110_lab03_ai_vision.postman_collection.json --env-var \"baseUrl=http://localhost:8000\" --env-var \"cameraStreamMockUrl=https://httpbin.org/anything\" -r cli,html,junit --reporter-html-export reports/newman-lab04-local.html --reporter-junit-export reports/newman-lab04-local.xml"
+    "test:local": "newman run postman/collections/FIT4110_lab03_ai_vision.postman_collection.json --env-var \"baseUrl=http://localhost:8000\" --env-var \"cameraStreamMockUrl=https://postman-echo.com/post\" -r cli,html,junit --reporter-html-export reports/newman-lab04-local.html --reporter-junit-export reports/newman-lab04-local.xml"
   },
   "devDependencies": {
     "@stoplight/prism-cli": "^5.10.0",
