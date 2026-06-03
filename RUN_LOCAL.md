@@ -7,8 +7,8 @@ Tài liệu này giúp người khác clone repo sạch và chạy lại service
 ## 1. Clone repo
 
 ```bash
-git clone <repo-url>
-cd FIT4110_lab04_docker_packaging
+git clone <https://github.com/FIT-17-13/fit4110-lab04-nhom2_wl_aivision.git>
+cd fit4110-lab04-nhom2_wl_aivision
 ```
 
 ---
@@ -16,7 +16,7 @@ cd FIT4110_lab04_docker_packaging
 ## 2. Cài dependencies cho Newman/Prism/Spectral
 
 ```bash
-npm install
+npm install newman newman-reporter-html --legacy-peer-deps
 ```
 
 ---
@@ -24,7 +24,7 @@ npm install
 ## 3. Build Docker image
 
 ```bash
-docker build -t fit4110/iot-ingestion:lab04 .
+docker build -t fit4110/ai-vision:lab04 .
 ```
 
 ---
@@ -33,10 +33,10 @@ docker build -t fit4110/iot-ingestion:lab04 .
 
 ```bash
 docker run --rm \
-  --name fit4110-iot-lab04 \
+  --name fit4110-aivision-lab04 \
   -p 8000:8000 \
   --env-file .env.example \
-  fit4110/iot-ingestion:lab04
+  fit4110/ai-vision:lab04
 ```
 
 Mở terminal khác, kiểm tra:
@@ -50,8 +50,8 @@ Kết quả mong đợi:
 ```json
 {
   "status": "ok",
-  "service": "iot-ingestion",
-  "version": "0.4.0"
+  "service": "AI Vision (YOLOv8 active)",
+  "timestamp": "2026-06-03T12:00:00.000000+00:00"
 }
 ```
 
@@ -60,7 +60,12 @@ Kết quả mong đợi:
 ## 5. Chạy Newman test trên container
 
 ```bash
-npm run test:local
+npx newman run postman/collections/FIT4110_lab03_ai_vision.postman_collection.json \
+  --env-var "baseUrl=http://localhost:8000" \
+  --env-var "cameraStreamMockUrl=[https://httpbin.org/anything](https://httpbin.org/anything)" \
+  -r "cli,html,junit" \
+  --reporter-html-export reports/newman-lab04-local.html \
+  --reporter-junit-export reports/newman-lab04-local.xml
 ```
 
 Report sinh tại:
@@ -77,7 +82,7 @@ reports/newman-lab04-local.html
 Nếu không dùng `--rm` hoặc container còn chạy:
 
 ```bash
-docker stop fit4110-iot-lab04
+docker stop fit4110-aivision-lab04
 ```
 
 ---
