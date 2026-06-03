@@ -1,0 +1,8 @@
+# Kế thừa bộ quy tắc chuẩn của OpenAPI
+extends: "spectral:oas"
+
+# Tùy chỉnh mức độ cảnh báo (có thể bỏ qua một số lỗi nhỏ không cần thiết)
+rules:
+  operation-description: warn
+  info-contact: off
+  info-license: off
